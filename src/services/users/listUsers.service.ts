@@ -1,6 +1,7 @@
 import { QueryResult } from "pg"
-import { tUserResponse } from "../interfaces/users.interfaces"
-import { client } from "../database"
+import { tUserResponse } from "../../interfaces/users.interfaces"
+import { client } from "../../database"
+
 
 const listUsersService = async (): Promise<Array<tUserResponse>> => {
   const searchQuery: string = `

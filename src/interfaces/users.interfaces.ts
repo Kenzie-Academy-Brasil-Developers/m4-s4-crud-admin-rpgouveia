@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod"
 import { requestUserSchema, responseUserSchema, userSchema } from "../schemas/user.schemas"
 
 type tUser = z.infer<typeof userSchema>
