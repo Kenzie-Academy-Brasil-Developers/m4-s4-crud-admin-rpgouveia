@@ -12,19 +12,19 @@ import jwt from "jsonwebtoken"
 const createLoginService = async (
   payload: tLoginRequest
 ): Promise<tLoginResponse> => {
-  const loginRequest = payload
+  const login = payload
   const searchQuery: string = `SELECT * FROM users WHERE email = $1`
-  const queryConfig: QueryConfig = { text: searchQuery, values: [loginRequest.email]}
+  const queryConfig: QueryConfig = { text: searchQuery, values: [login.email]}
   const queryResult: QueryResult<tUser> = await client.query(queryConfig)
   const user = queryResult.rows[0]
 
-  if (queryResult.rowCount === 0) {
+  if (!user) {
     throw new AppError("Wrong email/password", 401)
   }
 
-  const comparePassword = await bcrypt.compare(payload.password, user.password)
+  const comparePassword = await bcrypt.compare(login.password, user.password)
     
-  if (comparePassword === false) {
+  if (!comparePassword) {
     throw new AppError("Wrong email/password", 401)
   }
   
