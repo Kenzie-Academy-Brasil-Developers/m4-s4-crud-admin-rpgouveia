@@ -12,11 +12,10 @@ const createUserController = async (
   return response.status(201).json(newUser)
 }
 
-// Sem Admin Token para Listar Usuários
 const listUsersController = async (
   request: Request,
   response: Response
-): Promise<Response> => {
+): Promise<Response> => {  
   const users = await listUsersService()
   return response.json(users)
 }

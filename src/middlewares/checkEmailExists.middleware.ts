@@ -4,7 +4,7 @@ import { QueryConfig, QueryResult } from "pg";
 import { client } from "../database";
 import { AppError } from "../error";
 
-const checkEmailExistsMiddleware = async (
+const checkEmailExists = async (
   request: Request,
   response: Response,
   next: NextFunction
@@ -28,4 +28,4 @@ const checkEmailExistsMiddleware = async (
   return next()
 }
 
-export default checkEmailExistsMiddleware
+export default checkEmailExists

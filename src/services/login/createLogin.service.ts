@@ -8,6 +8,7 @@ import { tUser } from "../../interfaces/users.interfaces"
 import { AppError } from "../../error"
 import * as bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import "dotenv/config"
 
 const createLoginService = async (
   payload: tLoginRequest
@@ -29,10 +30,10 @@ const createLoginService = async (
   }
   
   const token: string = jwt.sign(
-    { email: user.email },
-    "KenzieAcademyBrasil",
+    { admin: user.admin },
+    process.env.SECRET_KEY!,
     {
-      expiresIn: "1d",
+      expiresIn: process.env.EXPIRES_IN!,
       subject: user.id.toString()
     }
   )

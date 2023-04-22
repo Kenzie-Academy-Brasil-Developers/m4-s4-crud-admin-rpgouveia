@@ -4,7 +4,7 @@ import { tUser } from "../interfaces/users.interfaces";
 import { client } from "../database";
 import { AppError } from "../error";
 
-const checkUserExistsMiddleware = async (
+const checkUserExists = async (
   request: Request,
   response: Response,
   next: NextFunction
@@ -30,4 +30,4 @@ const checkUserExistsMiddleware = async (
   return next()
 }
 
-export default checkUserExistsMiddleware
+export default checkUserExists
