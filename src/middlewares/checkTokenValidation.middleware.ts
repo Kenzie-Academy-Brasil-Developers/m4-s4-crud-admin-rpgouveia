@@ -18,6 +18,7 @@ const checkTokenValidation = async (
         throw new AppError(error.message, 401)
       }
       response.locals.admin = decoded.admin
+      response.locals.userId = decoded.sub
   })
   return next()
 }
