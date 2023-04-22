@@ -10,7 +10,7 @@ const checkAdminStatus = async (
   const adminStatus: boolean = response.locals.admin
 
   if (!adminStatus) {
-    throw new AppError('Insufficient Permission', 401)
+    throw new AppError('Insufficient Permission', 403)
   }
 
   return next()
