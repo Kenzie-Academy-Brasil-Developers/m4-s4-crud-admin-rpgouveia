@@ -1,8 +1,9 @@
 import format from "pg-format"
-import { tUserRequest, tUserResponse } from "../../interfaces/users.interfaces"
+import { tUser, tUserRequest, tUserResponse } from "../../interfaces/users.interfaces"
 import { QueryResult } from "pg"
 import { client } from "../../database"
 import * as bcrypt from "bcryptjs"
+import { responseUserSchema } from "../../schemas/user.schemas"
 
 const createUserService = async (
   userData: tUserRequest
@@ -19,8 +20,8 @@ const createUserService = async (
     Object.keys(userData), 
     Object.values(userData)
   )
-  const queryResult: QueryResult<tUserResponse> = await client.query(insertQuery)
-  const newUser = queryResult.rows[0]
+  const queryResult: QueryResult<tUser> = await client.query(insertQuery)
+  const newUser: tUserResponse = responseUserSchema.parse(queryResult.rows[0])
   return newUser
 }
 

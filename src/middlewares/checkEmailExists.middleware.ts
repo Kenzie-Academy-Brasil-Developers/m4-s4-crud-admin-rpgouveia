@@ -22,7 +22,7 @@ const checkEmailExists = async (
   const queryResult: QueryResult<tUser> = await client.query(queryConfig)
   
   if (queryResult.rowCount !== 0) {
-    throw new AppError('Email already registered', 409)
+    throw new AppError('E-mail already registered', 409)
   }
 
   return next()
