@@ -11,9 +11,11 @@ const userSchema = z.object({
 
 const requestUserSchema = userSchema.omit({ id: true, active: true })
 const responseUserSchema = userSchema.omit({ password: true })
+const updateUserSchema = requestUserSchema.omit({ admin: true}).partial()
 
 export {
   userSchema,
   requestUserSchema,
-  responseUserSchema
+  responseUserSchema,
+  updateUserSchema
 }

@@ -1,8 +1,9 @@
 import { Request, Response } from "express"
-import { tUserRequest, tUserResponse } from "../interfaces/users.interfaces"
+import { tUserRequest, tUserResponse, tUserUpdateRequest } from "../interfaces/users.interfaces"
 import createUserService from "../services/users/createUser.service"
 import listUsersService from "../services/users/listUsers.service"
 import listUserProfileService from "../services/users/listUserProfile.service"
+import updateUserService from "../services/users/updateUser.service"
 
 const createUserController = async (
   request: Request,
@@ -30,8 +31,21 @@ const listUserProfileController = async (
   return response.json(user)
 }
 
+const updateUserController = async (
+  request: Request,
+  response: Response
+): Promise<Response> => {
+  const userId = Number(request.params.id)
+  const loggedUserId = Number(response.locals.userId)
+  const isAdmin: boolean = response.locals.admin
+  const userData: tUserUpdateRequest = request.body
+  const user: tUserResponse = await updateUserService(userId, loggedUserId, isAdmin, userData)
+  return response.json(user)
+}
+
 export {
   createUserController,
   listUsersController,
-  listUserProfileController
+  listUserProfileController,
+  updateUserController
 }
