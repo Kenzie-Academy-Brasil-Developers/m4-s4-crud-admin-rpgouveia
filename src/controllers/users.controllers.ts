@@ -5,6 +5,7 @@ import listUsersService from "../services/users/listUsers.service"
 import listUserProfileService from "../services/users/listUserProfile.service"
 import updateUserService from "../services/users/updateUser.service"
 import deleteUserService from "../services/users/deleteUser.service"
+import recoverUserService from "../services/users/recoverUser.service"
 
 const createUserController = async (
   request: Request,
@@ -53,10 +54,20 @@ const deleteUserController = async (
   return response.status(204).send()
 }
 
+const recoverUserController = async (
+  request: Request,
+  response: Response
+): Promise<Response> => {
+  const userId = Number(request.params.id)
+  const recoveredUser: tUserResponse = await recoverUserService(userId)
+  return response.json(recoveredUser)
+}
+
 export {
   createUserController,
   listUsersController,
   listUserProfileController,
   updateUserController,
-  deleteUserController
+  deleteUserController,
+  recoverUserController
 }

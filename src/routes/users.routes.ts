@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { createUserController, deleteUserController, listUserProfileController, listUsersController, updateUserController } from "../controllers/users.controllers"
+import { createUserController, deleteUserController, listUserProfileController, listUsersController, recoverUserController, updateUserController } from "../controllers/users.controllers"
 import checkEmailExists from "../middlewares/checkEmailExists.middleware"
 import checkRequestBodyData from "../middlewares/checkRequestBodyData.middleware"
 import { requestUserSchema, updateUserSchema } from "../schemas/user.schemas"
@@ -7,6 +7,7 @@ import checkTokenValidation from "../middlewares/checkTokenValidation.middleware
 import checkAdminStatus from "../middlewares/checkAdminStatus.middleware"
 import checkUserExists from "../middlewares/checkUserExists.middleware"
 import checkLoggedUserPermission from "../middlewares/checkLoggedUser.middleware"
+import checkUserActiveStatus from "../middlewares/checkUserActiveStatus.middleware"
 
 const userRoutes: Router = Router()
 
@@ -28,6 +29,14 @@ userRoutes.delete(
   checkTokenValidation,
   checkLoggedUserPermission,
   deleteUserController
+  )
+userRoutes.put(
+  '/:id/recover',
+  checkUserExists,
+  checkTokenValidation,
+  checkAdminStatus,
+  checkUserActiveStatus,
+  recoverUserController
   )
 
 export default userRoutes
